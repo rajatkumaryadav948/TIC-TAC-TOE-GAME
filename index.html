@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        table{
+            margin: 0px auto;
+            text-align: center;
+        }
+        table,tr,td{
+            border: 5px solid red;
+            border-collapse:collapse ;
+        }
+        tr{
+            width: 450px;
+            height: 150px;
+        }
+        td{
+            height: 150px;
+            width: 150px;
+        }
+        td img{
+            width: 120px;
+            height: 120px;
+        }
+    </style>
+    <script>
+        var turn=0 // 0==o 1==x
+        var state=[2,2,2,2,2,2,2,2,2]; //2==blank
+        var winPosition=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        var gamestatus=true;
+        function ontap(e,i){
+            //e== element i==index
+            if(state[i]==2 && gamestatus==true){
+                if(turn==0){
+                        e.innerHTML="<img src='image-1/o.jpg.jpeg'/>";
+                        state[i]=0;
+                        turn=1;
+                        document.getElementById("h1").innerHTML="X Player Turn";
+ 
+                }
+                else{
+                    e.innerHTML="<img src='image-1/x.jpg.jpeg'/>";
+                    state[i]=1;
+                    turn=0;
+                    document.getElementById("h1").innerHTML="O Player Turn";
+                }
+                checkwinner();
+            }
+        }
+        //check win
+        function checkwinner(){
+            for(i=0; i<winPosition.length; i++){
+                var [a,b,c]=winPosition[i];
+                if(state[a]!=2 && state[a]==state[b] && state[b]==state[c]){
+                    gamestatus=false;
+                    var winner=state[a]==0?"O":"X";
+                    document.getElementById("h1").innerHTML=winner+"Players Win!";
+                    document.getElementById("win").style.backgroundIma
+                    return;    
+                }
+            }
+            //check draw
+            if(!state.includes(2)&& gamestatus){
+                gamestatus=false;
+                document.getElementById("h1").innerHTML="Its a Draw!";
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <center><h1 id="h1">0 player Turn</h1></center>
+    <table>
+        <tr>
+            <td onclick="ontap(this,0)"></td>
+            <td onclick="ontap(this,1)"></td>
+            <td onclick="ontap(this,2)"></td>
+        </tr>
+        <tr>
+            <td onclick="ontap(this,3)"></td>
+            <td onclick="ontap(this,4)"></td>
+            <td onclick="ontap(this,5)"></td>
+        </tr>
+        <tr>
+            <td onclick="ontap(this,6)"></td>
+            <td onclick="ontap(this,7)"></td>
+            <td onclick="ontap(this,8)"></td>
+        </tr>
+    </table>
+</body>
+</html>
